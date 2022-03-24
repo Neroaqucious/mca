@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,14 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('admin')->group(function () {
-    Route::get('auth/login', [UserController::class, 'login']);
+Route::prefix('admin')->group(function(){
+    Route::get('auth/login', [UserController::class, 'login'])->name('login');
     Route::post('auth/login', [UserController::class, 'authenticate']);
+
+    Route::middleware('auth')->group(function(){
+        Route::get('auth/logout', [UserController::class, 'logout'])->name('logout');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    });
 });
+

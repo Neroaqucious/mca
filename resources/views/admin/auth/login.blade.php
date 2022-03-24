@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <!-- Description, Author -->
-    <meta name="description" content="">
-    <meta name="author" content="">    
+    <meta name="description" content="{{ config('app.meta_description') ?? '' }}">
+    <meta name="author" content="{{ config('app.meta_author') ?? '' }}">    
     
     <!--CSS, favicons, etc. -->
     <link rel="shortcut icon" href="{{ url('favicon.ico') }}" type="image/x-icon">
@@ -34,7 +34,7 @@
               <label for="userPassword" class="col-form-label">Password</label>
               <input type="password" name="password" class="form-custom" id="userPassword" autocomplete="new-userPassword">
             </div>
-            <button type="submit" class="btn mt-4 btn-block" style="color: #fff;background-color: #275d2e;border-color: #275d2e;width: 40%;margin: 0 auto;border-radius: 0px; display:block; text-align:center;">Login</button>
+            <button type="submit" class="btn mt-4 btn-block" style="color: #fff;background-color: #275d2e;border-color: #275d2e;width: 40%;margin: 0 auto;border-radius: 0px; display:block; text-align:center;">{{ __('Login') }}</button>
           </form>
           @error('credential')
             <span style="color:#ff0000; text-align:center; display:block;">{{ $message }}</span>

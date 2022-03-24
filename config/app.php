@@ -126,9 +126,16 @@ return [
     /**
      * Version
      */
-
     'version' => env('APP_VERSION'),
 
+    /***
+     * Meta Description, Author
+     */
+
+    'meta_description' => env('META_DESCRIPTION'),
+    
+    'meta_author' => env('META_AUTHOR'),
+    
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

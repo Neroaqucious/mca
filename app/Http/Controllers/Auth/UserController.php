@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
+            'password' => ['required', 'min:6'],
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -31,6 +31,14 @@ class UserController extends Controller
         return back()->withErrors([
             'credential' => 'The credentials do not match!',
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 }
 
