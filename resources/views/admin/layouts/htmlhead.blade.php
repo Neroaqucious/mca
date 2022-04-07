@@ -14,8 +14,8 @@
     <link rel="icon" href="{{ url('favicon.ico') }}" type="image/x-icon">    
 
     <!-- Base CSS -->
-    <link rel="stylesheet" href="{{ url('assets/admin/css/basestyle/style.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/admin/css/dataTables.bootstrap4.min.css') }}" type="text/css" >
+    <link rel="stylesheet" rel="prefetch" href="{{ url('assets/admin/css/basestyle/style.css') }}">
+    <link rel="stylesheet" rel="prefetch" href="{{ url('assets/admin/css/dataTables.bootstrap4.min.css') }}" type="text/css" >
     <link href="{{ url('assets/admin/css/fonts.css') }}" rel="stylesheet">    
     <title>@yield('title') - {{ config('app.name') ?? '' }}</title>
   </head>

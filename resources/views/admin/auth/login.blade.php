@@ -16,22 +16,22 @@
     <link rel="icon" href="{{ url('favicon.ico') }}" type="image/x-icon">    
     <link href="{{ url('assets/admin/css/pages/login.css') }}" rel="stylesheet">
     <link href="{{ url('assets/admin/css/fonts.css') }}" rel="stylesheet">
-    <title>Login - Myanmar Cosmetics Origanization</title>
+    <title>{{ __('Login - Myanmar Cosmetics Origanization')}}</title>
   </head>
   <body>
     <section class="wrapper">
       <div class="login">
         <div class="form mr-auto ml-auto">
           <img src="{{ url('assets/admin/images/logo.png') }}" class="adm-logo" alt="MCA">
-          <h3 class="head">Sign In to Your Account</h3>
+          <h3 class="head">{{ __('Sign In to Your Account')}}</h3>
           <form method="POST" action="{{ url('admin/auth/login') }}">
             @csrf
             <div class="form-group">
-              <label for="userEmail" class="col-form-label">Email</label>
+              <label for="userEmail" class="col-form-label">{{ __('Email')}}</label>
               <input type="email" name="email" class="form-custom" id="userEmail" autocomplete="new-userEmail">
             </div>
             <div class="form-group">
-              <label for="userPassword" class="col-form-label">Password</label>
+              <label for="userPassword" class="col-form-label">{{ __('Password')}}</label>
               <input type="password" name="password" class="form-custom" id="userPassword" autocomplete="new-userPassword">
             </div>
             <button type="submit" class="btn mt-4 btn-block" style="color: #fff;background-color: #275d2e;border-color: #275d2e;width: 40%;margin: 0 auto;border-radius: 0px; display:block; text-align:center;">{{ __('Login') }}</button>
