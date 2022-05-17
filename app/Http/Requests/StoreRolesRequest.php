@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRolesRequest extends FormRequest
@@ -12,6 +11,7 @@ class StoreRolesRequest extends FormRequest
      *
      * @return bool
      */
+
     public function authorize()
     {
         return true;
@@ -25,7 +25,7 @@ class StoreRolesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:20|unique:roles',
+            'name' => 'required|max:20|unique:roles,name',
             'status' => 'required'
         ];   
     }

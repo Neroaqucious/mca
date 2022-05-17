@@ -111,7 +111,7 @@
       <li @if ($global['slug'] != "" && $global['slug'][0] == 'admin')class="open active"@endif>
         <a href="#" title="Admin Options"><span class="nav-icon material-icons">security</span> Configuration</a>
         <ul class="sub-nav">
-          <li class=""><a href="" title="Admin List"> Admin List</a></li>
+          <li @if ($global['slug'] != "" && $global['slug'][1] == 'user_list')class="active"@endif><a href="{{ url('admin/user') }}" title="Admin List"> Admin List</a></li>
           <li @if ($global['slug'] != "" && $global['slug'][1] == 'role_list')class="active"@endif><a href="{{ url('admin/role') }}" title="Role List"> Role List</a></li>
           <li class=""><a href="" title="Marchent"> Marchent</a></li>    
           <li class=""><a href="" title="Payment"> Mail List</a></li>

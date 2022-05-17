@@ -1,17 +1,17 @@
 @extends('admin.layouts.master')
-@section('title') Roles List @stop
+@section('title') Admin User Management @stop
 
 @section('breadcrumb')
   <button type="button" class="btn flat btn-outline-secondary btn-sm py-1 px-1" data-toggle="modal" data-target="#noAnimationModal"><span class="material-icons align-top md-18">search</span>&nbsp;{{ __('Search') }}&nbsp;&nbsp;</button>  
   <button type="button" class="btn flat btn-outline-secondary btn-sm py-1 px-1" data-toggle="modal" data-target="#formModal"><span class="material-icons align-top md-18">add_circle</span>&nbsp;{{ __('Create') }}&nbsp;&nbsp;</button>
 @stop
 
-@section('mainTemplateFrame') 
+@section('mainTemplateFrame')
   <div class="card">
     <div class="card-body">
       <div class="body">
         <div class="col-md-12 col-lg-12 pb-2 text-right">
-          <div class="text-secondary">@if (count($roles) > 1) {{ $roles->firstItem() }} ~ {{ $roles->lastItem()}} / {{ $roles->total() }} @endif</div>
+          <div class="text-secondary">@if (count($users) > 1) {{ $users->firstItem() }} ~ {{ $users->lastItem()}} / {{ $users->total() }} @endif</div>
         </div>
         <div class="table-responsive">
           <table class="table table-hover text-nowrap">
@@ -19,33 +19,29 @@
               <tr class="text-center">
                 <th width="1">#</th>
                 <th>Name</th>                     
-                <th>State </th>            
+                <th>Email </th>   
+                <th>Role</th>        
                 <th width="1">Created date</th>
                 <th width="1">Updated date</th> 
                 <th width="1">Actions</th>
               </tr>
             </thead>
             <tbody>
-              @if (count($roles) > 0)                              
-                @foreach ($roles as $role)
+              @if (count($users) > 0)                              
+                @foreach ($users as $user)
                 <tr class="text-center">
-                  <td class="text-right">{{ $role->id }}</td>
-                  <td>{{ $role->name }}</td>                        
-                  <td>
-                    @if ($role->status == 1)
-                      public
-                    @else
-                      private
-                    @endif
-                  </td>              
-                  <td>{{ $role->created_at }}</td>
-                  <td>{{ $role->updated_at }}</td>
+                  <td class="text-right">{{ $user->id }}</td>
+                  <td class="text-left">{{ $user->name }}</td>   
+                  <td class="text-left">{{ $user->email }}</td>   
+                  <td>{{ $user->role_name }}</td>                                
+                  <td>{{ $user->created_at }}</td>
+                  <td>{{ $user->updated_at }}</td>
                   <td>
                     <a href="#" class="text-muted" id="actionDropdown" data-toggle="dropdown">
                       <span class="material-icons md-20 align-middle">more_vert</span></a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actionDropdown">
-                        <a class="dropdown-item" href="{{ route('role.edit', $role->id) }}">Edit</a>
-                        <a class="dropdown-item" href="{{ route('role.destroy', $role->id) }}">Delete</a>              
+                        <a class="dropdown-item" href="{{ route('user.edit', $user->id) }}">Edit</a>
+                        <a class="dropdown-item" href="{{ route('user.destroy', $user->id) }}">Delete</a>              
                       </div>
                     </a>
                   </td>
@@ -60,7 +56,7 @@
           </table>
         </div>
         <div class="col-md-12 col-lg-12 d-block">      
-          <div class="float-right">{{ $roles->links() }}</div>
+          <div class="float-right">{{ $users->links() }}</div>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -73,32 +69,45 @@
   <div class="modal-dialog" style="width:420px;" role="document">
     <div class="modal-content">
       <div class="modal-header px-3">
-        <h5 class="modal-title" id="exampleModalLabel">{{ __('Add Roles')}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ __('Add Admin User')}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="material-icons ">close</span>
         </button>
       </div>
       <div class="modal-body p-3">
-        <form method="POST" action="{{ route('role.store') }}">
+        <form method="POST" action="{{ route('user.store') }}">
           @csrf
           @error('name')
             <div class="alert alert-danger">{{ $message }}</div>
           @enderror
           <div class="form-group">
-            <label for="roleName" class="col-form-label">{{ __('Name')}} <span class="badge badge-pill badge-danger">required</span></label>
-            <input type="text" name="name" class="form-control" id="roleName" autocomplete="new-roleName">
+            <label for="userName" class="col-form-label">{{ __('User Name')}} <span class="badge badge-pill badge-danger">required</span></label>
+            <input type="text" name="userName" class="form-control" id="userName" autocomplete="new-userName">
           </div>
-  
+
           <div class="form-group">
-            <label class="mb-2" for="status">{{ __('Status')}}</label> 
-            <div class="radio">
-              <label class="col-md-4">
-                <input type="radio" name="status" value="1" > {{ __('public')}}
-              </label>
-              <label class="col-md-4">
-                <input type="radio" name="status" value="0" checked="checked"> {{ __('private')}}
-              </label>
-            </div>
+            <label for="userEmail" class="col-form-label">{{ __('Email')}} <span class="badge badge-pill badge-danger">required</span></label>
+            <input type="email" name="userEmail" class="form-control" id="userEmail" autocomplete="new-userEmail">
+          </div>
+          
+          <div class="form-group">
+            <label for="userPassword" class="col-form-label">{{ __('Password')}} <span class="badge badge-pill badge-danger">required</span></label>
+            <input type="password" name="userPassword" class="form-control" id="userPassword" autocomplete="new-userPassword">
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword" class="col-form-label">{{ __('Confirm Password')}} <span class="badge badge-pill badge-danger">required</span></label>
+            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" autocomplete="new-confirmPassword">
+          </div>
+
+          <div class="form-group">
+            <label for="userRole" class="col-form-label">{{ __('Role Level')}} <span class="badge badge-pill badge-danger">required</span></label>
+            <select name="userRole" id="userRole" class="form-control">
+              <option value="">Please select</option>
+                @foreach ($roles as $role)
+                  <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
           </div>
           <hr>
           <button type="submit" class="btn btn-dark float-right">{{ __('Create') }}</button>
@@ -112,7 +121,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Search Role</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Search Admin User</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="material-icons ">close</span>
         </button>

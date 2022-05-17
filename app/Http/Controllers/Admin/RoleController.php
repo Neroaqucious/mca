@@ -62,10 +62,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $global = [
-            'slug' => ['admin','role_add'],
-        ];
-        return view('admin/roles/add', compact('global'));
+        return redirect(route('role.index'));        
     }
 
     /**
@@ -77,8 +74,7 @@ class RoleController extends Controller
     public function store(StoreRolesRequest $request)
     {
         Role::create($request->validated());
-        return redirect(route('role.index'))->with("success","Your data created successfully.");
-        
+        return redirect(route('role.index'))->with("success","Your data created successfully.");        
     }
 
     /**
@@ -136,6 +132,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        return $id;
+        if(!empty($id)) {
+            Role::where('id', $id)->delete();
+            return redirect()->route('role.index')->with('success','Role deleted successfully');
+        }        
     }
 }
